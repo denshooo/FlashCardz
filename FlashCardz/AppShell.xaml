@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:pages="clr-namespace:FlashCardz.Pages"
+       x:Class="FlashCardz.AppShell"
+       Shell.NavBarIsVisible="False">
+
+    <!-- Splash is the first screen -->
+    <ShellContent Route="SplashPage"
+                  ContentTemplate="{DataTemplate pages:SplashPage}"
+                  Shell.NavBarIsVisible="False"/>
+
+    <!-- Welcome has no back stack -->
+    <ShellContent Route="WelcomePage"
+                  ContentTemplate="{DataTemplate pages:WelcomePage}"
+                  Shell.NavBarIsVisible="False"/>
+
+</Shell>

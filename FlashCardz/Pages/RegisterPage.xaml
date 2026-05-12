@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:FlashCardz.Controls"
+             x:Class="FlashCardz.Pages.RegisterPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource SketchBg}">
+
+    <Grid RowDefinitions="Auto, *, Auto"
+          Padding="36,0">
+
+        <!-- Back button -->
+        <controls:WobblyButton Grid.Row="0"
+                               Text="← Back"
+                               WidthRequest="100"
+                               HeightRequest="40"
+                               HorizontalOptions="Start"
+                               Margin="0,20,0,0"
+                               Clicked="OnBackClicked"/>
+
+        <!-- Form -->
+        <VerticalStackLayout Grid.Row="1"
+                             VerticalOptions="Center"
+                             Spacing="24">
+
+            <Label Text="(•◡•)"
+                   FontFamily="Handwritten"
+                   FontSize="48"
+                   HorizontalOptions="Center"
+                   TextColor="{StaticResource SketchInk}"/>
+
+            <Label Text="Create Account"
+                   Style="{StaticResource TitleLabel}"/>
+
+            <!-- Username -->
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Username"/>
+                <Border Style="{StaticResource SketchInputBox}">
+                    <Entry x:Name="UsernameEntry"
+                           Placeholder="choose a username"/>
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Password -->
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Password"/>
+                <Border Style="{StaticResource SketchInputBox}">
+                    <Entry x:Name="PasswordEntry"
+                           Placeholder="choose a password"
+                           IsPassword="True"/>
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Confirm Password -->
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Confirm Password"/>
+                <Border Style="{StaticResource SketchInputBox}">
+                    <Entry x:Name="ConfirmPasswordEntry"
+                           Placeholder="repeat your password"
+                           IsPassword="True"/>
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Error -->
+            <Label x:Name="ErrorLabel"
+                   Style="{StaticResource DangerLabel}"
+                   IsVisible="False"/>
+
+        </VerticalStackLayout>
+
+        <!-- Register button -->
+        <controls:WobblyButton Grid.Row="2"
+                               Text="Register"
+                               WidthRequest="110"
+                               HeightRequest="48"
+                               HorizontalOptions="Center"
+                               Margin="0,0,0,60"
+                               Clicked="OnRegisterClicked"/>
+
+    </Grid>
+
+</ContentPage>

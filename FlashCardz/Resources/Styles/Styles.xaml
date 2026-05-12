@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- ═══════════════════════════════════════
+         COLORS
+    ═══════════════════════════════════════ -->
+    <Color x:Key="SketchBg">#FFFFFF</Color>
+    <Color x:Key="SketchInk">#1A1A1A</Color>
+    <Color x:Key="SketchRed">#E53935</Color>
+    <Color x:Key="SketchMuted">#888888</Color>
+    <Color x:Key="SketchBorder">#1A1A1A</Color>
+    <Color x:Key="SketchCardBg">#FAFAFA</Color>
+
+    <!-- ═══════════════════════════════════════
+         GLOBAL PAGE STYLE
+    ═══════════════════════════════════════ -->
+    <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
+        <Setter Property="BackgroundColor" Value="{StaticResource SketchBg}"/>
+    </Style>
+
+    <!-- ═══════════════════════════════════════
+         TYPOGRAPHY
+    ═══════════════════════════════════════ -->
+
+    <!-- Default label -->
+    <Style TargetType="Label">
+        <Setter Property="FontFamily" Value="Handwritten"/>
+        <Setter Property="TextColor" Value="{StaticResource SketchInk}"/>
+        <Setter Property="FontSize" Value="15"/>
+    </Style>
+
+    <!-- Page title (e.g. Deck Title) -->
+    <Style x:Key="TitleLabel" TargetType="Label">
+        <Setter Property="FontFamily" Value="Handwritten"/>
+        <Setter Property="TextColor" Value="{StaticResource SketchInk}"/>
+        <Setter Property="FontSize" Value="28"/>
+        <Setter Property="FontAttributes" Value="Bold"/>
+        <Setter Property="HorizontalTextAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Section header -->
+    <Style x:Key="SubtitleLabel" TargetType="Label">
+        <Setter Property="FontFamily" Value="Handwritten"/>
+        <Setter Property="TextColor" Value="{StaticResource SketchInk}"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontAttributes" Value="Bold"/>
+    </Style>
+
+    <!-- Muted helper text -->
+    <Style x:Key="MutedLabel" TargetType="Label">
+        <Setter Property="FontFamily" Value="Handwritten"/>
+        <Setter Property="TextColor" Value="{StaticResource SketchMuted}"/>
+        <Setter Property="FontSize" Value="13"/>
+    </Style>
+
+    <!-- Red / danger text (Delete Deck, errors) -->
+    <Style x:Key="DangerLabel" TargetType="Label">
+        <Setter Property="FontFamily" Value="Handwritten"/>
+        <Setter Property="TextColor" Value="{StaticResource SketchRed}"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontAttributes" Value="Bold"/>
+        <Setter Property="HorizontalTextAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Card counter label (Card #: 1/1) -->
+    <Style x:Key="CounterLabel" TargetType="Label">
+        <Setter Property="FontFamily" Value="Handwritten"/>
+        <Setter Property="TextColor" Value="{StaticResource SketchMuted}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="HorizontalTextAlignment" Value="Center"/>
+    </Style>
+
+    <!-- ═══════════════════════════════════════
+         INPUTS
+    ═══════════════════════════════════════ -->
+    <Style TargetType="Entry">
+        <Setter Property="FontFamily" Value="Handwritten"/>
+        <Setter Property="TextColor" Value="{StaticResource SketchInk}"/>
+        <Setter Property="PlaceholderColor" Value="{StaticResource SketchMuted}"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="BackgroundColor" Value="Transparent"/>
+    </Style>
+
+    <Style TargetType="Editor">
+        <Setter Property="FontFamily" Value="Handwritten"/>
+        <Setter Property="TextColor" Value="{StaticResource SketchInk}"/>
+        <Setter Property="PlaceholderColor" Value="{StaticResource SketchMuted}"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="BackgroundColor" Value="Transparent"/>
+    </Style>
+
+    <Style TargetType="SearchBar">
+        <Setter Property="FontFamily" Value="Handwritten"/>
+        <Setter Property="TextColor" Value="{StaticResource SketchInk}"/>
+        <Setter Property="PlaceholderColor" Value="{StaticResource SketchMuted}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="BackgroundColor" Value="Transparent"/>
+    </Style>
+
+    <!-- ═══════════════════════════════════════
+         BUTTONS
+    ═══════════════════════════════════════ -->
+
+    <!-- Primary sketch button (Login, Register, Save, etc.) -->
+    <Style x:Key="SketchButton" TargetType="Button">
+        <Setter Property="FontFamily" Value="Handwritten"/>
+        <Setter Property="TextColor" Value="{StaticResource SketchInk}"/>
+        <Setter Property="BackgroundColor" Value="Transparent"/>
+        <Setter Property="BorderColor" Value="{StaticResource SketchBorder}"/>
+        <Setter Property="BorderWidth" Value="1.5"/>
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="HeightRequest" Value="44"/>
+        <Setter Property="MinimumWidthRequest" Value="120"/>
+        <Setter Property="Padding" Value="16,0"/>
+    </Style>
+
+    <!-- Danger button (Delete Deck, Delete Card) -->
+    <Style x:Key="DangerButton" TargetType="Button">
+        <Setter Property="FontFamily" Value="Handwritten"/>
+        <Setter Property="TextColor" Value="{StaticResource SketchRed}"/>
+        <Setter Property="BackgroundColor" Value="Transparent"/>
+        <Setter Property="BorderColor" Value="{StaticResource SketchRed}"/>
+        <Setter Property="BorderWidth" Value="1.5"/>
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="HeightRequest" Value="44"/>
+        <Setter Property="MinimumWidthRequest" Value="120"/>
+        <Setter Property="Padding" Value="16,0"/>
+    </Style>
+
+    <!-- Small button (Back, Continue, Edit) -->
+    <Style x:Key="SmallSketchButton" TargetType="Button">
+        <Setter Property="FontFamily" Value="Handwritten"/>
+        <Setter Property="TextColor" Value="{StaticResource SketchInk}"/>
+        <Setter Property="BackgroundColor" Value="Transparent"/>
+        <Setter Property="BorderColor" Value="{StaticResource SketchBorder}"/>
+        <Setter Property="BorderWidth" Value="1.5"/>
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="HeightRequest" Value="34"/>
+        <Setter Property="MinimumWidthRequest" Value="70"/>
+        <Setter Property="Padding" Value="10,0"/>
+    </Style>
+
+    <!-- ═══════════════════════════════════════
+         SKETCH CARD / FRAME
+    ═══════════════════════════════════════ -->
+
+    <!-- Main flashcard or deck card box -->
+    <Style x:Key="SketchCard" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource SketchCardBg}"/>
+        <Setter Property="Stroke" Value="{StaticResource SketchBorder}"/>
+        <Setter Property="StrokeThickness" Value="1.5"/>
+        <Setter Property="StrokeShape" Value="RoundRectangle 4"/>
+        <Setter Property="Padding" Value="16"/>
+    </Style>
+
+    <!-- Input field box (underline style) -->
+    <Style x:Key="SketchInputBox" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="Transparent"/>
+        <Setter Property="Stroke" Value="{StaticResource SketchBorder}"/>
+        <Setter Property="StrokeThickness" Value="1.5"/>
+        <Setter Property="StrokeShape" Value="RoundRectangle 4"/>
+        <Setter Property="Padding" Value="10,4"/>
+    </Style>
+
+    <!-- Modal / popup container -->
+    <Style x:Key="SketchModal" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource SketchBg}"/>
+        <Setter Property="Stroke" Value="{StaticResource SketchBorder}"/>
+        <Setter Property="StrokeThickness" Value="1.5"/>
+        <Setter Property="StrokeShape" Value="RoundRectangle 6"/>
+        <Setter Property="Padding" Value="20"/>
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="{StaticResource SketchInk}"
+                        Offset="3,3"
+                        Radius="0"
+                        Opacity="0.15"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ═══════════════════════════════════════
+         BOTTOM NAV TAB BAR
+    ═══════════════════════════════════════ -->
+    <Style TargetType="TabBar">
+        <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource SketchBg}"/>
+        <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource SketchInk}"/>
+        <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource SketchMuted}"/>
+        <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource SketchInk}"/>
+    </Style>
+
+</ResourceDictionary>

@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:FlashCardz.Controls"
+             x:Class="FlashCardz.Pages.HomePage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource SketchBg}">
+
+    <Grid RowDefinitions="Auto, *, Auto">
+
+        <!-- Search bar -->
+        <Border Grid.Row="0"
+                Style="{StaticResource SketchInputBox}"
+                Margin="24,20,24,10">
+            <SearchBar x:Name="SearchBar"
+                       Placeholder="Search..."
+                       TextChanged="OnSearchChanged"/>
+        </Border>
+
+        <!-- Deck list -->
+        <ScrollView Grid.Row="1" Margin="24,0">
+            <VerticalStackLayout x:Name="DeckList" Spacing="16" Padding="0,8,0,8"/>
+        </ScrollView>
+
+        <!-- Card preview popup overlay -->
+        <Grid x:Name="PopupOverlay"
+              Grid.RowSpan="3"
+              BackgroundColor="#80000000"
+              IsVisible="False">
+
+            <Border Style="{StaticResource SketchModal}"
+                    WidthRequest="300"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+
+                <VerticalStackLayout Spacing="16">
+
+                    <Label x:Name="PopupTitle"
+                           Style="{StaticResource SubtitleLabel}"
+                           HorizontalOptions="Center"/>
+
+                    <Label x:Name="PopupContent"
+                           Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
+                           HorizontalTextAlignment="Center"/>
+
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="12">
+                        <controls:WobblyButton Grid.Column="0"
+                                               Text="← Back"
+                                               HeightRequest="40"
+                                               Clicked="OnPopupBackClicked"/>
+                        <controls:WobblyButton Grid.Column="1"
+                                               Text="Continue →"
+                                               HeightRequest="40"
+                                               Clicked="OnPopupContinueClicked"/>
+                    </Grid>
+
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+
+        <!-- Bottom nav bar -->
+        <Border Grid.Row="2"
+                Stroke="{StaticResource SketchBorder}"
+                StrokeThickness="1.5"
+                BackgroundColor="{StaticResource SketchBg}"
+                Padding="0,8">
+            <Grid ColumnDefinitions="*, *, *">
+
+                <!-- Home -->
+                <Button Grid.Column="0"
+                        Text="⌂"
+                        FontSize="24"
+                        BackgroundColor="Transparent"
+                        TextColor="{StaticResource SketchInk}"
+                        Clicked="OnHomeClicked"/>
+
+                <!-- Add -->
+                <Button Grid.Column="1"
+                        Text="+"
+                        FontSize="28"
+                        BackgroundColor="Transparent"
+                        TextColor="{StaticResource SketchInk}"
+                        Clicked="OnAddClicked"/>
+
+                <!-- Profile -->
+                <Button Grid.Column="2"
+                        Text="◯"
+                        FontSize="24"
+                        BackgroundColor="Transparent"
+                        TextColor="{StaticResource SketchInk}"
+                        Clicked="OnProfileClicked"/>
+
+            </Grid>
+        </Border>
+
+    </Grid>
+
+</ContentPage>
