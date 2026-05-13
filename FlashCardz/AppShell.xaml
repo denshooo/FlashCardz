@@ -5,14 +5,18 @@
        x:Class="FlashCardz.AppShell"
        Shell.NavBarIsVisible="False">
 
-    <!-- Splash is the first screen -->
+    <!-- Auth screens (no back stack) -->
     <ShellContent Route="SplashPage"
                   ContentTemplate="{DataTemplate pages:SplashPage}"
                   Shell.NavBarIsVisible="False"/>
 
-    <!-- Welcome has no back stack -->
     <ShellContent Route="WelcomePage"
                   ContentTemplate="{DataTemplate pages:WelcomePage}"
+                  Shell.NavBarIsVisible="False"/>
+
+    <!-- Main app screen (no back stack) -->
+    <ShellContent Route="HomePage"
+                  ContentTemplate="{DataTemplate pages:HomePage}"
                   Shell.NavBarIsVisible="False"/>
 
 </Shell>

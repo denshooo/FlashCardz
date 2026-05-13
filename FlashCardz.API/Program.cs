@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Services
 builder.Services.AddSingleton<UserService>();
 builder.Services.AddControllers();
+builder.Services.AddSingleton<DeckService>();
 
 // JWT Auth
 var jwtSecret = builder.Configuration["Jwt:Secret"]!;

@@ -19,20 +19,20 @@
 
         <!-- Deck list -->
         <ScrollView Grid.Row="1" Margin="24,0">
-            <VerticalStackLayout x:Name="DeckList" Spacing="16" Padding="0,8,0,8"/>
+            <VerticalStackLayout x:Name="DeckList"
+                                 Spacing="16"
+                                 Padding="0,8,0,8"/>
         </ScrollView>
 
-        <!-- Card preview popup overlay -->
+        <!-- Popup overlay -->
         <Grid x:Name="PopupOverlay"
               Grid.RowSpan="3"
               BackgroundColor="#80000000"
               IsVisible="False">
-
             <Border Style="{StaticResource SketchModal}"
                     WidthRequest="300"
                     HorizontalOptions="Center"
                     VerticalOptions="Center">
-
                 <VerticalStackLayout Spacing="16">
 
                     <Label x:Name="PopupTitle"
@@ -40,8 +40,9 @@
                            HorizontalOptions="Center"/>
 
                     <Label x:Name="PopupContent"
-                           Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
-                           HorizontalTextAlignment="Center"/>
+                           HorizontalTextAlignment="Center"
+                           MaxLines="3"
+                           LineBreakMode="TailTruncation"/>
 
                     <Grid ColumnDefinitions="*, *" ColumnSpacing="12">
                         <controls:WobblyButton Grid.Column="0"
@@ -58,41 +59,33 @@
             </Border>
         </Grid>
 
-        <!-- Bottom nav bar -->
+        <!-- Bottom nav -->
         <Border Grid.Row="2"
                 Stroke="{StaticResource SketchBorder}"
                 StrokeThickness="1.5"
                 BackgroundColor="{StaticResource SketchBg}"
                 Padding="0,8">
             <Grid ColumnDefinitions="*, *, *">
-
-                <!-- Home -->
                 <Button Grid.Column="0"
-                        Text="⌂"
+                        Text="🏚️"
                         FontSize="24"
                         BackgroundColor="Transparent"
                         TextColor="{StaticResource SketchInk}"
                         Clicked="OnHomeClicked"/>
-
-                <!-- Add -->
                 <Button Grid.Column="1"
                         Text="+"
                         FontSize="28"
                         BackgroundColor="Transparent"
                         TextColor="{StaticResource SketchInk}"
                         Clicked="OnAddClicked"/>
-
-                <!-- Profile -->
                 <Button Grid.Column="2"
-                        Text="◯"
+                        Text="👤"
                         FontSize="24"
                         BackgroundColor="Transparent"
                         TextColor="{StaticResource SketchInk}"
                         Clicked="OnProfileClicked"/>
-
             </Grid>
         </Border>
 
     </Grid>
-
 </ContentPage>

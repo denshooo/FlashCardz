@@ -1,11 +1,74 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:FlashCardz.Controls"
              x:Class="FlashCardz.Pages.CreateDeckPage"
              Shell.NavBarIsVisible="False"
              BackgroundColor="{StaticResource SketchBg}">
-    <Label Text="Create Deck - Coming Soon"
-           Style="{StaticResource TitleLabel}"
-           HorizontalOptions="Center"
-           VerticalOptions="Center"/>
+
+    <Grid RowDefinitions="Auto, *, Auto"
+          Padding="24,0">
+
+        <!-- Header -->
+        <Grid Grid.Row="0"
+              ColumnDefinitions="Auto, *"
+              Margin="0,20,0,10">
+            <controls:WobblyButton Grid.Column="0"
+                                   Text="← Back"
+                                   WidthRequest="90"
+                                   HeightRequest="36"
+                                   Clicked="OnBackClicked"/>
+            <Label Grid.Column="1"
+                   Text="New Deck"
+                   Style="{StaticResource TitleLabel}"
+                   VerticalOptions="Center"/>
+        </Grid>
+
+        <!-- Content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="20" Padding="0,8,0,8">
+
+                <!-- Deck title -->
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Deck Title"/>
+                    <Border Style="{StaticResource SketchInputBox}">
+                        <Entry x:Name="TitleEntry"
+                               Placeholder="enter deck title"/>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Cards section -->
+                <Label Text="Cards"
+                       Style="{StaticResource SubtitleLabel}"/>
+
+                <!-- Card list -->
+                <VerticalStackLayout x:Name="CardList"
+                                     Spacing="12"/>
+
+                <!-- Add card button -->
+                <controls:WobblyButton Text="+ Add Card"
+                                       WidthRequest="160"
+                                       HeightRequest="44"
+                                       HorizontalOptions="Center"
+                                       Clicked="OnAddCardClicked"/>
+
+                <!-- Error -->
+                <Label x:Name="ErrorLabel"
+                       Style="{StaticResource DangerLabel}"
+                       IsVisible="False"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Save button -->
+        <controls:WobblyButton Grid.Row="2"
+                               Text="Save Deck"
+                               WidthRequest="200"
+                               HeightRequest="48"
+                               HorizontalOptions="Center"
+                               Margin="0,0,0,40"
+                               Clicked="OnSaveClicked"/>
+
+    </Grid>
+
 </ContentPage>

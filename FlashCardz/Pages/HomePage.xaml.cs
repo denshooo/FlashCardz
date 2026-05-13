@@ -1,27 +1,33 @@
-﻿namespace FlashCardz.Pages;
+﻿using FlashCardz.Services;
+
+namespace FlashCardz.Pages;
 
 public partial class HomePage : ContentPage
 {
-    // Mock deck data for now
-    private readonly List<(string Title, string Preview)> _allDecks = new()
-    {
-        ("Science", "Photosynthesis, mitosis, cell structure..."),
-        ("Math", "Derivatives, integrals, limits..."),
-        ("History", "World War II, Renaissance, Cold War..."),
-        ("English", "Shakespearean terms, grammar rules..."),
-    };
-
-    private string? _selectedDeckTitle;
+    private readonly DeckService _deckService = new();
+    private List<DeckModel> _allDecks = new();
+    private DeckModel? _selectedDeck;
 
     public HomePage()
     {
         InitializeComponent();
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        await LoadDecks();
+    }
+
+    // ─── Load ─────────────────────────────────────────────────
+
+    private async Task LoadDecks()
+    {
+        _allDecks = await _deckService.GetDecksAsync();
         RenderDecks(_allDecks);
     }
 
-    // ─── Deck Rendering ───────────────────────────────────────
-
-    private void RenderDecks(List<(string Title, string Preview)> decks)
+    private void RenderDecks(List<DeckModel> decks)
     {
         DeckList.Children.Clear();
 
@@ -29,8 +35,9 @@ public partial class HomePage : ContentPage
         {
             DeckList.Children.Add(new Label
             {
-                Text = "No decks found.",
-                Style = (Style)Resources["MutedLabel"],
+                Text = "No decks yet. Tap + to create one!",
+                FontFamily = "Handwritten",
+                TextColor = Color.FromArgb("#888888"),
                 HorizontalOptions = LayoutOptions.Center,
                 Margin = new Thickness(0, 40, 0, 0)
             });
@@ -38,14 +45,14 @@ public partial class HomePage : ContentPage
         }
 
         foreach (var deck in decks)
-            DeckList.Children.Add(BuildDeckCard(deck.Title, deck.Preview));
+            DeckList.Children.Add(BuildDeckCard(deck));
     }
 
-    private View BuildDeckCard(string title, string preview)
+    private View BuildDeckCard(DeckModel deck)
     {
         var titleLabel = new Label
         {
-            Text = title,
+            Text = deck.Title,
             FontFamily = "Handwritten",
             FontSize = 17,
             FontAttributes = FontAttributes.Bold,
@@ -54,12 +61,12 @@ public partial class HomePage : ContentPage
 
         var previewLabel = new Label
         {
-            Text = preview,
+            Text = deck.Cards.Count > 0
+                ? $"{deck.Cards.Count} card{(deck.Cards.Count == 1 ? "" : "s")}"
+                : "No cards yet",
             FontFamily = "Handwritten",
             FontSize = 13,
-            TextColor = Color.FromArgb("#888888"),
-            MaxLines = 2,
-            LineBreakMode = LineBreakMode.TailTruncation
+            TextColor = Color.FromArgb("#888888")
         };
 
         var learnBtn = new Controls.WobblyButton
@@ -68,7 +75,7 @@ public partial class HomePage : ContentPage
             WidthRequest = 90,
             HeightRequest = 36
         };
-        learnBtn.Clicked += (s, e) => OnLearnClicked(title);
+        learnBtn.Clicked += (s, e) => OnLearnClicked(deck);
 
         var editBtn = new Controls.WobblyButton
         {
@@ -76,7 +83,7 @@ public partial class HomePage : ContentPage
             WidthRequest = 90,
             HeightRequest = 36
         };
-        editBtn.Clicked += (s, e) => OnEditClicked(title);
+        editBtn.Clicked += (s, e) => OnEditClicked(deck);
 
         var btnRow = new Grid
         {
@@ -104,9 +111,8 @@ public partial class HomePage : ContentPage
             Content = cardContent
         };
 
-        // Tap deck card to show preview popup
         var tap = new TapGestureRecognizer();
-        tap.Tapped += (s, e) => ShowPopup(title, preview);
+        tap.Tapped += (s, e) => ShowPopup(deck);
         card.GestureRecognizers.Add(tap);
 
         return card;
@@ -125,11 +131,13 @@ public partial class HomePage : ContentPage
 
     // ─── Popup ────────────────────────────────────────────────
 
-    private void ShowPopup(string title, string preview)
+    private void ShowPopup(DeckModel deck)
     {
-        _selectedDeckTitle = title;
-        PopupTitle.Text = title;
-        PopupContent.Text = preview;
+        _selectedDeck = deck;
+        PopupTitle.Text = deck.Title;
+        PopupContent.Text = deck.Cards.Count > 0
+            ? $"This deck has {deck.Cards.Count} card(s). Ready to study?"
+            : "This deck has no cards yet. Edit it to add some!";
         PopupOverlay.IsVisible = true;
     }
 
@@ -141,27 +149,26 @@ public partial class HomePage : ContentPage
     private async void OnPopupContinueClicked(object? sender, EventArgs e)
     {
         PopupOverlay.IsVisible = false;
-        await Shell.Current.GoToAsync($"LearnPage?deckTitle={_selectedDeckTitle}");
+        if (_selectedDeck != null)
+            await Shell.Current.GoToAsync(
+                $"LearnPage?deckId={_selectedDeck.Id}");
     }
 
     // ─── Deck actions ─────────────────────────────────────────
 
-    private async void OnLearnClicked(string deckTitle)
+    private async void OnLearnClicked(DeckModel deck)
     {
-        await Shell.Current.GoToAsync($"LearnPage?deckTitle={deckTitle}");
+        await Shell.Current.GoToAsync($"LearnPage?deckId={deck.Id}");
     }
 
-    private async void OnEditClicked(string deckTitle)
+    private async void OnEditClicked(DeckModel deck)
     {
-        await Shell.Current.GoToAsync($"EditDeckPage?deckTitle={deckTitle}");
+        await Shell.Current.GoToAsync($"EditDeckPage?deckId={deck.Id}");
     }
 
     // ─── Bottom nav ───────────────────────────────────────────
 
-    private void OnHomeClicked(object sender, EventArgs e)
-    {
-        // Already on home
-    }
+    private void OnHomeClicked(object sender, EventArgs e) { }
 
     private async void OnAddClicked(object sender, EventArgs e)
     {
