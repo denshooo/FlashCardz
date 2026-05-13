@@ -4,10 +4,12 @@
              xmlns:controls="clr-namespace:FlashCardz.Controls"
              x:Class="FlashCardz.Pages.CreateDeckPage"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="{StaticResource SketchBg}">
+             BackgroundColor="#FFFEF5">
 
     <Grid RowDefinitions="Auto, *, Auto"
           Padding="24,0">
+
+       
 
         <!-- Header -->
         <Grid Grid.Row="0"
@@ -15,7 +17,6 @@
               Margin="0,20,0,10">
             <controls:WobblyButton Grid.Column="0"
                                    Text="← Back"
-                                   WidthRequest="90"
                                    HeightRequest="36"
                                    Clicked="OnBackClicked"/>
             <Label Grid.Column="1"
@@ -31,10 +32,11 @@
                 <!-- Deck title -->
                 <VerticalStackLayout Spacing="6">
                     <Label Text="Deck Title"/>
-                    <Border Style="{StaticResource SketchInputBox}">
+                    <controls:WobblyBorder HeightRequest="48"
+                                           WobblyFillColor="#FFFFFF">
                         <Entry x:Name="TitleEntry"
                                Placeholder="enter deck title"/>
-                    </Border>
+                    </controls:WobblyBorder>
                 </VerticalStackLayout>
 
                 <!-- Cards section -->
@@ -47,7 +49,6 @@
 
                 <!-- Add card button -->
                 <controls:WobblyButton Text="+ Add Card"
-                                       WidthRequest="160"
                                        HeightRequest="44"
                                        HorizontalOptions="Center"
                                        Clicked="OnAddCardClicked"/>
@@ -63,7 +64,6 @@
         <!-- Save button -->
         <controls:WobblyButton Grid.Row="2"
                                Text="Save Deck"
-                               WidthRequest="200"
                                HeightRequest="48"
                                HorizontalOptions="Center"
                                Margin="0,0,0,40"

@@ -4,18 +4,22 @@
              xmlns:controls="clr-namespace:FlashCardz.Controls"
              x:Class="FlashCardz.Pages.HomePage"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="{StaticResource SketchBg}">
+             BackgroundColor="#FFFEF5">
 
     <Grid RowDefinitions="Auto, *, Auto">
 
+      
+
         <!-- Search bar -->
-        <Border Grid.Row="0"
-                Style="{StaticResource SketchInputBox}"
-                Margin="24,20,24,10">
+        <controls:WobblyBorder Grid.Row="0"
+                               Margin="24,20,24,10"
+                               HeightRequest="50"
+                               WobblyFillColor="#FFFFFF">
             <SearchBar x:Name="SearchBar"
                        Placeholder="Search..."
+                       BackgroundColor="Transparent"
                        TextChanged="OnSearchChanged"/>
-        </Border>
+        </controls:WobblyBorder>
 
         <!-- Deck list -->
         <ScrollView Grid.Row="1" Margin="24,0">
@@ -29,11 +33,12 @@
               Grid.RowSpan="3"
               BackgroundColor="#80000000"
               IsVisible="False">
-            <Border Style="{StaticResource SketchModal}"
-                    WidthRequest="300"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center">
-                <VerticalStackLayout Spacing="16">
+            <controls:WobblyBorder WidthRequest="300"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   WobblyFillColor="#FFFEF5">
+                <VerticalStackLayout Spacing="16"
+                                     Padding="8">
 
                     <Label x:Name="PopupTitle"
                            Style="{StaticResource SubtitleLabel}"
@@ -56,15 +61,13 @@
                     </Grid>
 
                 </VerticalStackLayout>
-            </Border>
+            </controls:WobblyBorder>
         </Grid>
 
         <!-- Bottom nav -->
-        <Border Grid.Row="2"
-                Stroke="{StaticResource SketchBorder}"
-                StrokeThickness="1.5"
-                BackgroundColor="{StaticResource SketchBg}"
-                Padding="0,8">
+        <controls:WobblyBorder Grid.Row="2"
+                               HeightRequest="64"
+                               WobblyFillColor="#FFFEF5">
             <Grid ColumnDefinitions="*, *, *">
                 <Button Grid.Column="0"
                         Text="🏚️"
@@ -85,7 +88,8 @@
                         TextColor="{StaticResource SketchInk}"
                         Clicked="OnProfileClicked"/>
             </Grid>
-        </Border>
+        </controls:WobblyBorder>
 
     </Grid>
+
 </ContentPage>

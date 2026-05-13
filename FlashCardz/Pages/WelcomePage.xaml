@@ -4,39 +4,40 @@
              xmlns:controls="clr-namespace:FlashCardz.Controls"
              x:Class="FlashCardz.Pages.WelcomePage"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="{StaticResource SketchBg}">
+             BackgroundColor="#FFFEF5">
 
     <Grid RowDefinitions="*, Auto">
 
+        
+        <!-- Logo + title -->
         <VerticalStackLayout Grid.Row="0"
                              HorizontalOptions="Center"
                              VerticalOptions="Center"
                              Spacing="12">
-            
-                <Image Source="flashcard_logo.jpg"
-                       HeightRequest="150"
-                       WidthRequest="150"
-                       HorizontalOptions="Center"
-                       VerticalOptions="Center"
-                       Aspect="AspectFit"/>
+
+            <Image Source="flashcard_logo.jpg"
+                   HeightRequest="150"
+                   WidthRequest="150"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Aspect="AspectFit"/>
 
             <Label Text="FlashCardz"
                    Style="{StaticResource TitleLabel}"/>
 
         </VerticalStackLayout>
 
+        <!-- Buttons -->
         <VerticalStackLayout Grid.Row="1"
                              Spacing="16"
                              HorizontalOptions="Center"
                              Margin="0,0,0,60">
 
             <controls:WobblyButton Text="Login"
-                                   WidthRequest="200"
                                    HeightRequest="48"
                                    Clicked="OnLoginClicked"/>
 
             <controls:WobblyButton Text="Register"
-                                   WidthRequest="200"
                                    HeightRequest="48"
                                    Clicked="OnRegisterClicked"/>
 

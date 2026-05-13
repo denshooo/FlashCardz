@@ -4,15 +4,16 @@
              xmlns:controls="clr-namespace:FlashCardz.Controls"
              x:Class="FlashCardz.Pages.LoginPage"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="{StaticResource SketchBg}">
+             BackgroundColor="#FFFEF5">
 
     <Grid RowDefinitions="Auto, *, Auto"
           Padding="36,0">
 
+       
+
         <!-- Back button -->
         <controls:WobblyButton Grid.Row="0"
                                Text="← Back"
-                               WidthRequest="120"
                                HeightRequest="50"
                                HorizontalOptions="Start"
                                Margin="0,20,0,0"
@@ -35,20 +36,22 @@
             <!-- Username -->
             <VerticalStackLayout Spacing="6">
                 <Label Text="Username"/>
-                <Border Style="{StaticResource SketchInputBox}">
+                <controls:WobblyBorder HeightRequest="48"
+                                       WobblyFillColor="#FFFFFF">
                     <Entry x:Name="UsernameEntry"
                            Placeholder="enter username"/>
-                </Border>
+                </controls:WobblyBorder>
             </VerticalStackLayout>
 
             <!-- Password -->
             <VerticalStackLayout Spacing="6">
                 <Label Text="Password"/>
-                <Border Style="{StaticResource SketchInputBox}">
+                <controls:WobblyBorder HeightRequest="48"
+                                       WobblyFillColor="#FFFFFF">
                     <Entry x:Name="PasswordEntry"
                            Placeholder="enter password"
                            IsPassword="True"/>
-                </Border>
+                </controls:WobblyBorder>
             </VerticalStackLayout>
 
             <!-- Error -->
@@ -61,7 +64,6 @@
         <!-- Login button -->
         <controls:WobblyButton Grid.Row="2"
                                Text="Login"
-                               WidthRequest="200"
                                HeightRequest="48"
                                HorizontalOptions="Center"
                                Margin="0,0,0,60"

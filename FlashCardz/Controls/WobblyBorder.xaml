@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FlashCardz.Controls.WobblyBorder">
+
+    <Grid>
+        <!-- Wobbly border background -->
+        <GraphicsView x:Name="BorderCanvas"/>
+
+        <!-- Actual content sits on top -->
+        <ContentPresenter x:Name="InnerContent"
+                          Margin="14,10"/>
+    </Grid>
+
+</ContentView>

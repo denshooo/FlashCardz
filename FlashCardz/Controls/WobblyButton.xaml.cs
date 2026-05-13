@@ -4,17 +4,16 @@ public partial class WobblyButton : ContentView
 {
     private readonly SketchButtonDrawable _drawable = new();
 
-    // Bindable text property
     public static readonly BindableProperty TextProperty =
         BindableProperty.Create(nameof(Text), typeof(string), typeof(WobblyButton), "",
             propertyChanged: (b, _, n) =>
             {
                 var btn = (WobblyButton)b;
                 btn._drawable.Text = (string)n;
+                btn.UpdateSize();
                 btn.Canvas.Invalidate();
             });
 
-    // Bindable IsDanger property
     public static readonly BindableProperty IsDangerProperty =
         BindableProperty.Create(nameof(IsDanger), typeof(bool), typeof(WobblyButton), false,
             propertyChanged: (b, _, n) =>
@@ -36,7 +35,6 @@ public partial class WobblyButton : ContentView
         set => SetValue(IsDangerProperty, value);
     }
 
-    // Tap event the page can subscribe to
     public event EventHandler? Clicked;
 
     public WobblyButton()
@@ -45,16 +43,34 @@ public partial class WobblyButton : ContentView
         Canvas.Drawable = _drawable;
     }
 
+    private void UpdateSize()
+    {
+        // Measure text length and set size accordingly
+        var textLength = Text?.Length ?? 0;
+        var calculatedWidth = Math.Max(80, textLength * 11 + 32);
+        var calculatedHeight = HeightRequest > 0 ? HeightRequest : 44;
+
+        Canvas.WidthRequest = WidthRequest > 0 ? WidthRequest : calculatedWidth;
+        Canvas.HeightRequest = calculatedHeight;
+    }
+
+    protected override void OnPropertyChanged(string? propertyName = null)
+    {
+        base.OnPropertyChanged(propertyName);
+        if (propertyName == nameof(WidthRequest) ||
+            propertyName == nameof(HeightRequest))
+        {
+            UpdateSize();
+            Canvas.Invalidate();
+        }
+    }
+
     private async void OnTapped(object? sender, TappedEventArgs e)
     {
-        // Wiggle animation on tap
         await Canvas.RotateTo(3, 60, Easing.SpringOut);
         await Canvas.RotateTo(-3, 60, Easing.SpringOut);
         await Canvas.RotateTo(0, 60, Easing.SpringOut);
-
-        // Redraw border (makes it look redrawn each tap)
         Canvas.Invalidate();
-
         Clicked?.Invoke(this, EventArgs.Empty);
     }
 }

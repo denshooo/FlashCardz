@@ -105,9 +105,9 @@ public partial class HomePage : ContentPage
             Children = { titleLabel, previewLabel, btnRow }
         };
 
-        var card = new Border
+        var card = new Controls.WobblyBorder
         {
-            Style = (Style)Application.Current!.Resources["SketchCard"],
+            WobblyFillColor = Color.FromArgb("#FAFAFA"),
             Content = cardContent
         };
 

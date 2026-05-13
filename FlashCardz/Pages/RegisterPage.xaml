@@ -4,15 +4,16 @@
              xmlns:controls="clr-namespace:FlashCardz.Controls"
              x:Class="FlashCardz.Pages.RegisterPage"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="{StaticResource SketchBg}">
+             BackgroundColor="#FFFEF5">
 
     <Grid RowDefinitions="Auto, *, Auto"
           Padding="36,0">
 
+        
+
         <!-- Back button -->
         <controls:WobblyButton Grid.Row="0"
                                Text="← Back"
-                               WidthRequest="100"
                                HeightRequest="40"
                                HorizontalOptions="Start"
                                Margin="0,20,0,0"
@@ -35,30 +36,33 @@
             <!-- Username -->
             <VerticalStackLayout Spacing="6">
                 <Label Text="Username"/>
-                <Border Style="{StaticResource SketchInputBox}">
+                <controls:WobblyBorder HeightRequest="48"
+                                       WobblyFillColor="#FFFFFF">
                     <Entry x:Name="UsernameEntry"
                            Placeholder="choose a username"/>
-                </Border>
+                </controls:WobblyBorder>
             </VerticalStackLayout>
 
             <!-- Password -->
             <VerticalStackLayout Spacing="6">
                 <Label Text="Password"/>
-                <Border Style="{StaticResource SketchInputBox}">
+                <controls:WobblyBorder HeightRequest="48"
+                                       WobblyFillColor="#FFFFFF">
                     <Entry x:Name="PasswordEntry"
                            Placeholder="choose a password"
                            IsPassword="True"/>
-                </Border>
+                </controls:WobblyBorder>
             </VerticalStackLayout>
 
             <!-- Confirm Password -->
             <VerticalStackLayout Spacing="6">
                 <Label Text="Confirm Password"/>
-                <Border Style="{StaticResource SketchInputBox}">
+                <controls:WobblyBorder HeightRequest="48"
+                                       WobblyFillColor="#FFFFFF">
                     <Entry x:Name="ConfirmPasswordEntry"
                            Placeholder="repeat your password"
                            IsPassword="True"/>
-                </Border>
+                </controls:WobblyBorder>
             </VerticalStackLayout>
 
             <!-- Error -->
@@ -71,7 +75,6 @@
         <!-- Register button -->
         <controls:WobblyButton Grid.Row="2"
                                Text="Register"
-                               WidthRequest="110"
                                HeightRequest="48"
                                HorizontalOptions="Center"
                                Margin="0,0,0,60"
