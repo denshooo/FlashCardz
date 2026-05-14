@@ -13,7 +13,7 @@
 
         <!-- Header -->
         <Grid Grid.Row="0"
-              ColumnDefinitions="Auto, *"
+              ColumnDefinitions="Auto, *, Auto"
               Margin="0,20,0,10">
             <controls:WobblyButton Grid.Column="0"
                                    Text="← Back"
@@ -22,7 +22,12 @@
             <Label Grid.Column="1"
                    Text="New Deck"
                    Style="{StaticResource TitleLabel}"
+                   HorizontalOptions="Center"
                    VerticalOptions="Center"/>
+            <!-- Empty right column to balance the back button -->
+            <BoxView Grid.Column="2"
+                     WidthRequest="90"
+                     Color="Transparent"/>
         </Grid>
 
         <!-- Content -->

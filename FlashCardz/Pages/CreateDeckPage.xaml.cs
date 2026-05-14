@@ -16,90 +16,95 @@ public partial class CreateDeckPage : ContentPage
     // ─── Add a card row ───────────────────────────────────────
 
     private void AddCardRow()
+{
+    int cardNumber = _cardEntries.Count + 1;
+
+    var frontEntry = new Entry
     {
-        int cardNumber = _cardEntries.Count + 1;
+        Placeholder = "Front (question)",
+        FontFamily = "Handwritten",
+        FontSize = 14,
+        TextColor = Color.FromArgb("#1A1A1A"),
+        PlaceholderColor = Color.FromArgb("#888888"),
+        BackgroundColor = Colors.Transparent
+    };
 
-        var frontEntry = new Entry
+    var backEntry = new Entry
+    {
+        Placeholder = "Back (answer)",
+        FontFamily = "Handwritten",
+        FontSize = 14,
+        TextColor = Color.FromArgb("#1A1A1A"),
+        PlaceholderColor = Color.FromArgb("#888888"),
+        BackgroundColor = Colors.Transparent
+    };
+
+    // Wobbly input borders
+    var frontBorder = new Controls.WobblyBorder
+    {
+        HeightRequest = 48,
+        WobblyFillColor = Colors.White,
+        Content = frontEntry
+    };
+
+    var backBorder = new Controls.WobblyBorder
+    {
+        HeightRequest = 48,
+        WobblyFillColor = Colors.White,
+        Content = backEntry
+    };
+
+    // Delete button
+    var deleteBtn = new Controls.WobblyButton
+    {
+        Text = "✕",
+        WidthRequest = 40,
+        HeightRequest = 36,
+        IsDanger = true
+    };
+
+    var cardIndex = _cardEntries.Count;
+    deleteBtn.Clicked += (s, e) => RemoveCardRow(cardIndex);
+
+    var headerRow = new Grid
+    {
+        ColumnDefinitions = new ColumnDefinitionCollection
         {
-            Placeholder = "Front (question)",
-            FontFamily = "Handwritten",
-            FontSize = 14,
-            TextColor = Color.FromArgb("#1A1A1A"),
-            PlaceholderColor = Color.FromArgb("#888888"),
-            BackgroundColor = Colors.Transparent
-        };
+            new ColumnDefinition { Width = GridLength.Star },
+            new ColumnDefinition { Width = GridLength.Auto }
+        }
+    };
 
-        var backEntry = new Entry
+    var cardLabel = new Label
+    {
+        Text = $"Card {cardNumber}",
+        FontFamily = "Handwritten",
+        FontSize = 14,
+        FontAttributes = FontAttributes.Bold,
+        TextColor = Color.FromArgb("#1A1A1A"),
+        VerticalOptions = LayoutOptions.Center
+    };
+
+    Grid.SetColumn(cardLabel, 0);
+    Grid.SetColumn(deleteBtn, 1);
+    headerRow.Children.Add(cardLabel);
+    headerRow.Children.Add(deleteBtn);
+
+    // Wobbly card container
+    var cardContainer = new Controls.WobblyBorder
+    {
+        WobblyFillColor = Color.FromArgb("#FAFAFA"),
+        Content = new VerticalStackLayout
         {
-            Placeholder = "Back (answer)",
-            FontFamily = "Handwritten",
-            FontSize = 14,
-            TextColor = Color.FromArgb("#1A1A1A"),
-            PlaceholderColor = Color.FromArgb("#888888"),
-            BackgroundColor = Colors.Transparent
-        };
+            Spacing = 10,
+            Padding = new Thickness(4),
+            Children = { headerRow, frontBorder, backBorder }
+        }
+    };
 
-        var frontBorder = new Border
-        {
-            Style = (Style)Application.Current!.Resources["SketchInputBox"],
-            Content = frontEntry
-        };
-
-        var backBorder = new Border
-        {
-            Style = (Style)Application.Current!.Resources["SketchInputBox"],
-            Content = backEntry
-        };
-
-        // Delete button for this card
-        var deleteBtn = new Controls.WobblyButton
-        {
-            Text = "✕",
-            WidthRequest = 40,
-            HeightRequest = 36,
-            IsDanger = true
-        };
-
-        var cardIndex = _cardEntries.Count;
-        deleteBtn.Clicked += (s, e) => RemoveCardRow(cardIndex);
-
-        var headerRow = new Grid
-        {
-            ColumnDefinitions = new ColumnDefinitionCollection
-            {
-                new ColumnDefinition { Width = GridLength.Star },
-                new ColumnDefinition { Width = GridLength.Auto }
-            }
-        };
-
-        var cardLabel = new Label
-        {
-            Text = $"Card {cardNumber}",
-            FontFamily = "Handwritten",
-            FontSize = 14,
-            FontAttributes = FontAttributes.Bold,
-            TextColor = Color.FromArgb("#1A1A1A"),
-            VerticalOptions = LayoutOptions.Center
-        };
-
-        Grid.SetColumn(cardLabel, 0);
-        Grid.SetColumn(deleteBtn, 1);
-        headerRow.Children.Add(cardLabel);
-        headerRow.Children.Add(deleteBtn);
-
-        var cardContainer = new Border
-        {
-            Style = (Style)Application.Current!.Resources["SketchCard"],
-            Content = new VerticalStackLayout
-            {
-                Spacing = 10,
-                Children = { headerRow, frontBorder, backBorder }
-            }
-        };
-
-        _cardEntries.Add((frontEntry, backEntry));
-        CardList.Children.Add(cardContainer);
-    }
+    _cardEntries.Add((frontEntry, backEntry));
+    CardList.Children.Add(cardContainer);
+}
 
     private void RemoveCardRow(int index)
     {
@@ -117,8 +122,8 @@ public partial class CreateDeckPage : ContentPage
         // Renumber remaining cards
         for (int i = 0; i < CardList.Children.Count; i++)
         {
-            if (CardList.Children[i] is Border border &&
-                border.Content is VerticalStackLayout vsl &&
+            if (CardList.Children[i] is Controls.WobblyBorder wb &&
+                wb.Content is VerticalStackLayout vsl &&
                 vsl.Children[0] is Grid grid &&
                 grid.Children[0] is Label lbl)
             {
