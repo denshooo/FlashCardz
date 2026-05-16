@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:FlashCardz.Controls"
+             x:Class="FlashCardz.Pages.EditDeckPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#FFFEF5">
+
+    <Grid RowDefinitions="Auto, *, Auto">
+
+        <!-- Header -->
+        <Grid Grid.Row="0"
+              ColumnDefinitions="Auto, *, Auto"
+              Padding="24,20,24,10">
+
+            <controls:WobblyButton Grid.Column="0"
+                                   Text="Exit"
+                                   HeightRequest="36"
+                                   Clicked="OnExitClicked"/>
+
+            <Label Grid.Column="1"
+                   Text="Edit Deck"
+                   Style="{StaticResource TitleLabel}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+
+            <controls:WobblyButton Grid.Column="2"
+                                   Text="Save"
+                                   HeightRequest="36"
+                                   Clicked="OnSaveClicked"/>
+        </Grid>
+
+        <!-- Content -->
+        <ScrollView Grid.Row="1" Padding="24,0">
+            <VerticalStackLayout Spacing="20" Padding="0,8,0,8">
+
+                <!-- Deck Title -->
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Deck Title"/>
+                    <controls:WobblyBorder HeightRequest="48"
+                                           WobblyFillColor="#FFFFFF">
+                        <Entry x:Name="TitleEntry"
+                               Placeholder="deck title"/>
+                    </controls:WobblyBorder>
+                </VerticalStackLayout>
+
+                <!-- Cards -->
+                <Label Text="Cards"
+                       Style="{StaticResource SubtitleLabel}"/>
+
+                <VerticalStackLayout x:Name="CardList"
+                                     Spacing="12"/>
+
+                <!-- Add card -->
+                <controls:WobblyButton Text="+ Add Card"
+                                       HeightRequest="44"
+                                       HorizontalOptions="Center"
+                                       Clicked="OnAddCardClicked"/>
+
+                <!-- Error -->
+                <Label x:Name="ErrorLabel"
+                       Style="{StaticResource DangerLabel}"
+                       IsVisible="False"/>
+
+                <!-- Delete Deck -->
+                <controls:WobblyButton Text="Delete Deck"
+                                       HeightRequest="44"
+                                       HorizontalOptions="Center"
+                                       IsDanger="True"
+                                       Margin="0,20,0,0"
+                                       Clicked="OnDeleteDeckClicked"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Card counter -->
+        <Label Grid.Row="2"
+               x:Name="CardCounterLabel"
+               Style="{StaticResource CounterLabel}"
+               Margin="0,8,0,16"/>
+
+        <!-- Edit Card Modal -->
+        <Grid x:Name="EditCardOverlay"
+              Grid.RowSpan="3"
+              BackgroundColor="#80000000"
+              IsVisible="False">
+
+            <controls:WobblyBorder WidthRequest="300"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   WobblyFillColor="#FFFEF5">
+                <VerticalStackLayout Spacing="16" Padding="8">
+
+                    <Label Text="Edit Card"
+                           Style="{StaticResource SubtitleLabel}"
+                           HorizontalOptions="Center"/>
+
+                    <!-- Front -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Front (Question)"/>
+                        <controls:WobblyBorder HeightRequest="48"
+                                               WobblyFillColor="#FFFFFF">
+                            <Entry x:Name="EditFrontEntry"
+                                   Placeholder="enter question"/>
+                        </controls:WobblyBorder>
+                    </VerticalStackLayout>
+
+                    <!-- Back -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Back (Answer)"/>
+                        <controls:WobblyBorder HeightRequest="48"
+                                               WobblyFillColor="#FFFFFF">
+                            <Entry x:Name="EditBackEntry"
+                                   Placeholder="enter answer"/>
+                        </controls:WobblyBorder>
+                    </VerticalStackLayout>
+
+                    <!-- Modal buttons -->
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="12">
+                        <controls:WobblyButton Grid.Column="0"
+                                               Text="Cancel"
+                                               HeightRequest="40"
+                                               Clicked="OnEditCardCancelClicked"/>
+                        <controls:WobblyButton Grid.Column="1"
+                                               Text="Save"
+                                               HeightRequest="40"
+                                               Clicked="OnEditCardSaveClicked"/>
+                    </Grid>
+
+                </VerticalStackLayout>
+            </controls:WobblyBorder>
+        </Grid>
+
+    </Grid>
+</ContentPage>
