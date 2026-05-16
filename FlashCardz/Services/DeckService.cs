@@ -19,7 +19,11 @@ public class CardModel
 public class DeckService
 {
     private readonly HttpClient _http;
+#if DEBUG
     private const string BaseUrl = "http://10.0.2.2:5170/api/deck";
+#else
+    private const string BaseUrl = "https://flashcardz-production.up.railway.app/api/deck";
+#endif
 
     public DeckService()
     {
