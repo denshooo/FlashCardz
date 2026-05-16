@@ -1,15 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FlashCardz.Controls.WobblyBorder">
+             x:Class="FlashCardz.Controls.WobblyBorder"
+             VerticalOptions="FillAndExpand"
+             HorizontalOptions="Fill">
 
-    <Grid>
-        <!-- Wobbly border background -->
-        <GraphicsView x:Name="BorderCanvas"/>
+    <Grid VerticalOptions="FillAndExpand">
+        <!-- Border drawn behind everything -->
+        <GraphicsView x:Name="BorderCanvas"
+                      InputTransparent="True"
+                      HorizontalOptions="Fill"
+                      VerticalOptions="Fill"/>
 
-        <!-- Actual content sits on top -->
+        <!-- Content on top, with padding so it sits inside the wobbly border -->
         <ContentPresenter x:Name="InnerContent"
-                          Margin="14,10"/>
+                          InputTransparent="False"
+                          VerticalOptions="Fill"
+                          HorizontalOptions="Fill"
+                          Margin="10,6"/>
     </Grid>
 
 </ContentView>

@@ -77,10 +77,26 @@
     ═══════════════════════════════════════ -->
     <Style TargetType="Entry">
         <Setter Property="FontFamily" Value="Handwritten"/>
-        <Setter Property="TextColor" Value="{StaticResource SketchInk}"/>
-        <Setter Property="PlaceholderColor" Value="{StaticResource SketchMuted}"/>
+        <Setter Property="TextColor" Value="#1A1A1A"/>
+        <Setter Property="PlaceholderColor" Value="#888888"/>
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="BackgroundColor" Value="Transparent"/>
+        <Setter Property="MinimumHeightRequest" Value="40"/>
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <Setter.Value>
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal"/>
+                        <VisualState x:Name="Focused">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="#1A1A1A"/>
+                                <Setter Property="BackgroundColor" Value="Transparent"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style TargetType="Editor">

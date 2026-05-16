@@ -102,6 +102,7 @@ public partial class HomePage : ContentPage
         var cardContent = new VerticalStackLayout
         {
             Spacing = 8,
+            Padding = new Thickness(0, 0, 0, 8),  
             Children = { titleLabel, previewLabel, btnRow }
         };
 

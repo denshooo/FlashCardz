@@ -17,17 +17,9 @@ public class WobblyBorderDrawable : IDrawable
         float w = dirtyRect.Width - 8;
         float h = dirtyRect.Height - 8;
 
-        // Fill background
-        canvas.FillColor = FillColor;
-        canvas.FillRectangle(x, y, w, h);
-
-        // Draw wobbly border
-        canvas.StrokeColor = StrokeColor;
-        canvas.StrokeSize = StrokeWidth;
-
-        var path = new PathF();
         int steps = 8;
 
+        var path = new PathF();
         path.MoveTo(x + W(), y + W());
         for (int i = 1; i <= steps; i++)
             path.LineTo(x + (w / steps) * i + W(), y + W(1.5f));
@@ -45,6 +37,13 @@ public class WobblyBorderDrawable : IDrawable
             path.LineTo(x + W(1.5f), y + (h / steps) * i + W());
 
         path.Close();
+
+        // Fill FIRST then stroke on top
+        canvas.FillColor = FillColor;
+        canvas.FillPath(path);
+
+        canvas.StrokeColor = StrokeColor;
+        canvas.StrokeSize = StrokeWidth;
         canvas.DrawPath(path);
     }
 }

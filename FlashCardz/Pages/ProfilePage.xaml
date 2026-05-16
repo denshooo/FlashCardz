@@ -1,9 +1,125 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FlashCardz.Pages.ProfilePage">
-    <ContentPage.Content>
-        
-    </ContentPage.Content>
+             xmlns:controls="clr-namespace:FlashCardz.Controls"
+             x:Class="FlashCardz.Pages.ProfilePage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#FFFFFF">
+
+    <Grid RowDefinitions="Auto, *, Auto"
+          Padding="24,48,24,32">
+
+        <!-- Header -->
+        <Label Grid.Row="0"
+               Text="Profile"
+               Style="{StaticResource TitleLabel}"
+               HorizontalOptions="Center"
+               Margin="0,0,0,32"/>
+
+        <!-- Content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="20">
+
+                <!-- Avatar + Username -->
+                <controls:WobblyBorder WobblyFillColor="#FFFFFF"
+                                       HorizontalOptions="Fill"
+                                       Padding="24">
+                    <VerticalStackLayout Spacing="8"
+                                        HorizontalOptions="Center">
+
+                        <!-- Avatar circle -->
+                        <Border BackgroundColor="#1A1A1A"
+                                StrokeShape="Ellipse"
+                                Stroke="Transparent"
+                                WidthRequest="72"
+                                HeightRequest="72"
+                                HorizontalOptions="Center">
+                            <Label x:Name="AvatarLabel"
+                                   Text="?"
+                                   TextColor="#FFFEF5"
+                                   FontSize="32"
+                                   FontFamily="Handwritten"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
+                        </Border>
+
+                        <Label x:Name="UsernameLabel"
+                               Text="..."
+                               Style="{StaticResource TitleLabel}"
+                               HorizontalOptions="Center"/>
+
+                    </VerticalStackLayout>
+                </controls:WobblyBorder>
+
+                <!-- Stats -->
+                <Grid ColumnDefinitions="*, *"
+                      ColumnSpacing="16">
+
+                    <!-- Decks count -->
+                    <controls:WobblyBorder Grid.Column="0"
+                                           WobblyFillColor="#FFFFFF"
+                                           HorizontalOptions="Fill"
+                                           Padding="16">
+                        <VerticalStackLayout Spacing="4"
+                                             HorizontalOptions="Center">
+                            <Label x:Name="DeckCountLabel"
+                                   Text="—"
+                                   FontSize="28"
+                                   FontFamily="Handwritten"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="Decks"
+                                   Style="{StaticResource MutedLabel}"
+                                   HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </controls:WobblyBorder>
+
+                    <!-- Streak -->
+                    <controls:WobblyBorder Grid.Column="1"
+                                           WobblyFillColor="#FFFFFF"
+                                           HorizontalOptions="Fill"
+                                           Padding="16">
+                        <VerticalStackLayout Spacing="4"
+                                             HorizontalOptions="Center">
+                            <Label x:Name="StreakLabel"
+                                   Text="—"
+                                   FontSize="28"
+                                   FontFamily="Handwritten"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="Day Streak 🔥"
+                                   Style="{StaticResource MutedLabel}"
+                                   HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </controls:WobblyBorder>
+
+                </Grid>
+
+                <!-- Study history placeholder -->
+                <controls:WobblyBorder WobblyFillColor="#FFFFFF"
+                                       HorizontalOptions="Fill"
+                                       Padding="20">
+                    <VerticalStackLayout Spacing="12">
+                        <Label Text="Study History"
+                               Style="{StaticResource TitleLabel}"
+                               HorizontalOptions="Center"/>
+                        <Label x:Name="HistoryLabel"
+                               Text="No sessions recorded yet."
+                               Style="{StaticResource MutedLabel}"
+                               HorizontalOptions="Center"/>
+                        
+                    </VerticalStackLayout>
+                </controls:WobblyBorder>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Logout button -->
+        <controls:WobblyButton Grid.Row="2"
+                               Text="Log Out"
+                               HeightRequest="52"
+                               IsDanger="True"
+                               HorizontalOptions="Fill"
+                               Margin="0,24,0,0"
+                               Clicked="OnLogOutClicked"/>
+
+    </Grid>
 </ContentPage>

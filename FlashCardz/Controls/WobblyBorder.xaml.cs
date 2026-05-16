@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FlashCardz.Controls;
+﻿namespace FlashCardz.Controls;
 
 public partial class WobblyBorder : ContentView
 {
@@ -42,6 +36,9 @@ public partial class WobblyBorder : ContentView
         set => SetValue(WobblyStrokeColorProperty, value);
     }
 
+    // Restored: needed so XAML child content is routed into InnerContent
+    // instead of ContentView's own Content slot (which would clash with
+    // the Grid we have in the XAML).
     public new View? Content
     {
         get => InnerContent.Content;
@@ -52,5 +49,30 @@ public partial class WobblyBorder : ContentView
     {
         InitializeComponent();
         BorderCanvas.Drawable = _drawable;
+    }
+
+    // Fires after every layout pass — redraws the border at the correct size.
+    protected override void OnSizeAllocated(double width, double height)
+    {
+        base.OnSizeAllocated(width, height);
+        if (width > 0 && height > 0)
+            BorderCanvas.Invalidate();
+    }
+
+    // Forces the inner Grid (and everything inside it) to be arranged
+    // at the full allocated bounds, fixing vertical centering on Android.
+    [Obsolete("Obsolete")]
+    protected override Size ArrangeOverride(Rect bounds)
+    {
+        var result = base.ArrangeOverride(bounds);
+
+        // Explicitly arrange the root Grid child to fill the entire bounds
+        if (Children.Count > 0 && Children[0] is Grid grid)
+        {
+            grid.Arrange(new Rect(0, 0, bounds.Width, bounds.Height));
+            BorderCanvas.Invalidate();
+        }
+
+        return result;
     }
 }

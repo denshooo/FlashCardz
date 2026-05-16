@@ -4,11 +4,13 @@ namespace FlashCardz.Pages;
 
 public partial class LoginPage : ContentPage
 {
-    private readonly AuthService _authService = new();
+    private readonly AuthService _authService;
 
-    public LoginPage()
+    // AuthService injected via DI (registered in MauiProgram.cs)
+    public LoginPage(AuthService authService)
     {
         InitializeComponent();
+        _authService = authService;
     }
 
     private async void OnLoginClicked(object? sender, EventArgs e)
@@ -21,17 +23,20 @@ public partial class LoginPage : ContentPage
             return;
         }
 
-        // Show loading state
         ErrorLabel.IsVisible = false;
 
-        var (success, message, token, username) =
-            await _authService.LoginAsync(UsernameEntry.Text, PasswordEntry.Text);
+        var (success, message, token, username, userId, learningStreak) =
+            await _authService.LoginAsync(
+                UsernameEntry.Text.Trim(),
+                PasswordEntry.Text);
 
         if (success)
         {
-            // Store token and username securely
-            await SecureStorage.SetAsync("auth_token", token!);
-            await SecureStorage.SetAsync("username", username!);
+            // Persist everything needed across pages
+            await SecureStorage.SetAsync("auth_token",       token!);
+            await SecureStorage.SetAsync("username",         username!);
+            await SecureStorage.SetAsync("user_id",          userId ?? string.Empty);
+            await SecureStorage.SetAsync("learning_streak",  learningStreak.ToString());
 
             await Shell.Current.GoToAsync("//HomePage");
         }

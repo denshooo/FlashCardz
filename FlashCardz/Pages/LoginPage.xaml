@@ -4,7 +4,7 @@
              xmlns:controls="clr-namespace:FlashCardz.Controls"
              x:Class="FlashCardz.Pages.LoginPage"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="#FFFEF5">
+             BackgroundColor="#FFFFFF">
 
     <Grid RowDefinitions="Auto, *, Auto"
           Padding="36,0">

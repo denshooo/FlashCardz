@@ -1,9 +1,188 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FlashCardz.Pages.LearnPage">
-    <ContentPage.Content>
-        
-    </ContentPage.Content>
+             xmlns:controls="clr-namespace:FlashCardz.Controls"
+             x:Class="FlashCardz.Pages.LearnPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#FFFFFF">
+
+    <Grid RowDefinitions="Auto, *, Auto">
+
+        <!-- Header -->
+        <Grid Grid.Row="0"
+              ColumnDefinitions="Auto, *, Auto"
+              Padding="24,20,24,10">
+
+            <controls:WobblyButton Grid.Column="0"
+                                   Text="← Back"
+                                   HeightRequest="36"
+                                   Clicked="OnBackClicked"/>
+
+            <Label Grid.Column="1"
+                   x:Name="DeckTitleLabel"
+                   Style="{StaticResource TitleLabel}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+
+            <BoxView Grid.Column="2"
+                     WidthRequest="80"
+                     Color="Transparent"/>
+        </Grid>
+
+        <!-- Flashcard area -->
+        <Grid Grid.Row="1"
+              Padding="24,0"
+              RowDefinitions="*, Auto, Auto">
+
+            <Grid x:Name="CardGrid"
+                  Grid.Row="0"
+                  VerticalOptions="Fill">
+
+                <!-- Front of card -->
+                <controls:WobblyBorder x:Name="CardFront"
+                                       WobblyFillColor="#FFFFFF"
+                                       VerticalOptions="Fill"
+                                       HorizontalOptions="Fill">
+                    <Grid VerticalOptions="Fill">
+                        <VerticalStackLayout VerticalOptions="Center"
+                                             HorizontalOptions="Center"
+                                             Spacing="12"
+                                             Padding="16">
+
+                            <Label Text="Question"
+                                   Style="{StaticResource MutedLabel}"
+                                   HorizontalOptions="Center"/>
+
+                            <Label x:Name="FrontLabel"
+                                   Style="{StaticResource SubtitleLabel}"
+                                   HorizontalTextAlignment="Center"
+                                   HorizontalOptions="Center"/>
+
+                            <Label Text="tap to flip"
+                                   Style="{StaticResource MutedLabel}"
+                                   HorizontalOptions="Center"
+                                   Margin="0,16,0,0"/>
+
+                        </VerticalStackLayout>
+                    </Grid>
+                </controls:WobblyBorder>
+
+                <!-- Back of card (hidden initially) -->
+                <controls:WobblyBorder x:Name="CardBack"
+                                       WobblyFillColor="#FAFAFA"
+                                       VerticalOptions="Fill"
+                                       HorizontalOptions="Fill"
+                                       IsVisible="False">
+                    <Grid VerticalOptions="Fill">
+                        <VerticalStackLayout VerticalOptions="Center"
+                                             HorizontalOptions="Center"
+                                             Spacing="12"
+                                             Padding="16">
+
+                            <Label Text="Answer"
+                                   Style="{StaticResource MutedLabel}"
+                                   HorizontalOptions="Center"/>
+
+                            <Label x:Name="BackLabel"
+                                   Style="{StaticResource SubtitleLabel}"
+                                   HorizontalTextAlignment="Center"
+                                   HorizontalOptions="Center"/>
+
+                            <Label Text="tap to flip back"
+                                   Style="{StaticResource MutedLabel}"
+                                   HorizontalOptions="Center"
+                                   Margin="0,16,0,0"/>
+
+                        </VerticalStackLayout>
+                    </Grid>
+                </controls:WobblyBorder>
+
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnCardTapped"/>
+                </Grid.GestureRecognizers>
+            </Grid>
+
+            <!-- Wrong / Correct buttons -->
+            <Grid Grid.Row="1"
+                  ColumnDefinitions="*, *"
+                  ColumnSpacing="16"
+                  Margin="0,20,0,0">
+
+                <controls:WobblyButton Grid.Column="0"
+                                       Text="✗ Wrong"
+                                       HeightRequest="48"
+                                       IsDanger="True"
+                                       HorizontalOptions="Fill"
+                                       Clicked="OnWrongClicked"/>
+
+                <controls:WobblyButton Grid.Column="1"
+                                       Text="✓ Correct"
+                                       HeightRequest="48"
+                                       HorizontalOptions="Fill"
+                                       Clicked="OnCorrectClicked"/>
+            </Grid>
+
+            <!-- Card counter -->
+            <Label Grid.Row="2"
+                   x:Name="CardCounterLabel"
+                   Style="{StaticResource CounterLabel}"
+                   HorizontalOptions="Center"
+                   Margin="0,12,0,0"/>
+
+        </Grid>
+
+        <!-- Score Summary Overlay -->
+        <Grid x:Name="SummaryOverlay"
+              Grid.RowSpan="3"
+              BackgroundColor="#CC000000"
+              IsVisible="False">
+
+            <Border BackgroundColor="#FFFEF5"
+                    Stroke="#1A1A1A"
+                    StrokeThickness="2"
+                    StrokeShape="RoundRectangle 8"
+                    WidthRequest="300"
+                    Padding="24"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+
+                <VerticalStackLayout Spacing="16">
+
+                    <Label Text="Session Complete!"
+                           Style="{StaticResource TitleLabel}"
+                           HorizontalOptions="Center"/>
+
+                    <Label x:Name="ScoreLabel"
+                           Style="{StaticResource SubtitleLabel}"
+                           HorizontalTextAlignment="Center"
+                           HorizontalOptions="Center"/>
+
+                    <Label x:Name="ScoreBreakdownLabel"
+                           Style="{StaticResource MutedLabel}"
+                           HorizontalTextAlignment="Center"
+                           HorizontalOptions="Center"/>
+
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="12"
+                          Margin="0,8,0,0">
+
+                        <controls:WobblyButton Grid.Column="0"
+                                               Text="Try Again"
+                                               HeightRequest="44"
+                                               WidthRequest="120"
+                                               HorizontalOptions="Center"
+                                               Clicked="OnTryAgainClicked"/>
+
+                        <controls:WobblyButton Grid.Column="1"
+                                               Text="Done"
+                                               HeightRequest="44"
+                                               WidthRequest="100"
+                                               HorizontalOptions="Center"
+                                               Clicked="OnDoneClicked"/>
+                    </Grid>
+
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+
+    </Grid>
 </ContentPage>

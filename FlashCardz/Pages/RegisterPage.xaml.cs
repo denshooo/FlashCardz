@@ -4,11 +4,12 @@ namespace FlashCardz.Pages;
 
 public partial class RegisterPage : ContentPage
 {
-    private readonly AuthService _authService = new();
+    private readonly AuthService _authService;
 
-    public RegisterPage()
+    public RegisterPage(AuthService authService)
     {
         InitializeComponent();
+        _authService = authService;
     }
 
     private async void OnRegisterClicked(object? sender, EventArgs e)
