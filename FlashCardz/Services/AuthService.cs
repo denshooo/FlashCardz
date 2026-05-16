@@ -10,7 +10,7 @@ public class AuthService
 #if DEBUG
     private const string BaseUrl = "http://10.0.2.2:5170/api/auth";
 #else
-    private const string BaseUrl = "https://your-production-api.com/api/auth";
+    private const string BaseUrl = "https://flashcardz-production.up.railway.app/api/auth";
 #endif
 
     // Injected as singleton from MauiProgram.cs
