@@ -36,4 +36,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
-app.Run();
+// Railway assigns a dynamic PORT via environment variable
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5170";
+app.Run($"http://0.0.0.0:{port}");
